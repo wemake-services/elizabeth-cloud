@@ -28,10 +28,10 @@ def test_bad_sub_name(app):
 def test_catch_not_found_404(app):
     @app.exception([NotFound])
     def exception_list(request, exception):
-        return text("ok")
+        return text("not_found")
 
-    request, response = app.test_client.get('/not_found_404')
-    assert response.text == "ok"
+    _, response = app.test_client.get('/not_found_404')
+    assert response.text == "not_found"
 
-    request, response = app.test_client.get('/api/food/dich')
-    assert response.text == "ok"
+    _, response = app.test_client.get('/api/food/dich')
+    assert response.text == "not_found"
