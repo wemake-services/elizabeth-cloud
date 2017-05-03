@@ -35,3 +35,8 @@ def test_catch_not_found_404(app):
 
     _, response = app.test_client.get('/api/food/dich')
     assert response.text == "not_found"
+
+
+def test_specific_provider(app):
+    _, response = app.test_client.get("/api/russia_provider/snils")
+    assert response.status == 200

@@ -6,6 +6,7 @@ from sanic.exceptions import NotFound
 
 from simple_settings import settings
 
+from .builtins import add_builtins
 
 api = Blueprint('api', url_prefix='/api')
 
@@ -29,7 +30,8 @@ async def handle_resource(request: Request,
     """
     language = request.args.get('lang', settings.SC_DEFAULT_LANGUAGE)
 
-    g = Generic(language)
+    generic = Generic(language)
+    g = add_builtins(generic)
 
     try:
         obj = getattr(g, resource)
